@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  bdd_cube:
-    container_name: aggregation_service
-    image: cubejs/cube:latest
-    ports:
-      - 4000:4000
-    environment:
-      - CUBEJS_DEV_MODE=true
-    volumes:
-      - ./cube:/cube/conf
-
   bdd_postgres:
     container_name: data_warehouse
     image: postgres:latest
@@ -21,3 +11,24 @@ services:
     ports:
       - "5432:5432"
     restart: always
+
+  bdd_cube:
+    container_name: aggregation_service
+    image: cubejs/cube:latest
+    ports:
+      - 4000:4000
+    environment:
+      - CUBEJS_DEV_MODE=true
+    volumes:
+      - ./cube:/cube/conf
+    depends_on:
+      - "bdd_postgres"
+
+  bdd_dbt:
+    container_name: dbt_container
+    build:
+      context: ./dbt
+      dockerfile: Dockerfile
+    depends_on:
+      - "bdd_cube"
+
