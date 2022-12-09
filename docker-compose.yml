@@ -2,7 +2,7 @@ version: '3'
 
 services:
   bdd_cube:
-    container_name: aggr_serv
+    container_name: aggregation_service
     image: cubejs/cube:latest
     ports:
       - 4000:4000
