@@ -9,7 +9,7 @@ services:
     environment:
       - CUBEJS_DEV_MODE=true
     volumes:
-      - .:/cube/conf
+      - ./cube:/cube/conf
 
   bdd_postgres:
     container_name: data_warehouse
