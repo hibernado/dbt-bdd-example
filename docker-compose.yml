@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  bdd_cube:
+    container_name: aggr_serv
+    image: cubejs/cube:latest
+    ports:
+      - 4000:4000
+    environment:
+      - CUBEJS_DEV_MODE=true
+    volumes:
+      - .:/cube/conf
+
+  bdd_postgres:
+    container_name: data_warehouse
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=demo
+    ports:
+      - "5432:5432"
+    restart: always
